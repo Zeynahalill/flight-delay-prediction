@@ -1,0 +1,29 @@
+# Ham veri (büyük, repo'ya girmemeli)
+data/raw/*
+!data/raw/.gitkeep
+
+# Eğitilmiş model (regenerable, binary)
+models/*
+!models/.gitkeep
+
+# Üretilen grafikler (regenerable)
+outputs/eda/*
+!outputs/eda/.gitkeep
+outputs/evaluation/*
+!outputs/evaluation/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+
+# Sanal ortam
+.venv/
+venv/
+
+# Notebook checkpoint'leri
+.ipynb_checkpoints/
+
+# Editör
+.vscode/
