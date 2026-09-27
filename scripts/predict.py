@@ -2,7 +2,7 @@
 
 import argparse
 
-from flight_delay import predict
+from flight_delay import predict, reporting
 
 
 def main():
@@ -24,9 +24,11 @@ def main():
         "Length": args.length,
     }
 
-    proba, label = predict.predict_new(sample)
+    proba, label, prediction = predict.predict_new_with_flag(sample)
     print(f"Gecikme olasılığı: {proba:.2%}")
     print(f"Sonuç: {label}")
+
+    reporting.append_prediction_csv(sample, proba, prediction)
 
 
 if __name__ == "__main__":

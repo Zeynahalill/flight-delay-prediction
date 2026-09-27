@@ -11,12 +11,19 @@ from sklearn.metrics import (
     confusion_matrix, roc_auc_score, roc_curve,
 )
 
-from . import config
+from . import config, reporting
 
 sns.set_style("whitegrid")
 
 
-def evaluate_all(models: dict, X_test, y_test, feature_names=None) -> dict:
+def evaluate_all(models: dict, X_test, y_test, feature_names=None, raw_test_df=None) -> dict:
+    """
+    raw_test_df: split_data()'nın döndürdüğü, encode edilmemiş test seti
+    (Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length, Delay
+    kolonlarını içerir). Verilirse ve random_forest modeli varsa, test
+    setindeki HER örnek için satır satır sonuçlar
+    outputs/evaluation/test_predictions.csv olarak kaydedilir.
+    """
     config.EVAL_DIR.mkdir(parents=True, exist_ok=True)
 
     results = {}
@@ -46,6 +53,16 @@ def evaluate_all(models: dict, X_test, y_test, feature_names=None) -> dict:
 
     if "random_forest" in models and feature_names is not None:
         _plot_feature_importance(models["random_forest"], feature_names)
+        reporting.save_feature_importance_csv(
+            feature_names, models["random_forest"].feature_importances_
+        )
+
+    if "random_forest" in models and raw_test_df is not None:
+        reporting.save_test_predictions_csv(
+            raw_test_df, predictions["random_forest"], probas["random_forest"]
+        )
+
+    reporting.save_model_results_csv(results)
 
     return results
 

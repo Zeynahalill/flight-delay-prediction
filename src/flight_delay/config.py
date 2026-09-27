@@ -17,6 +17,14 @@ OUTPUT_DIR = ROOT_DIR / "outputs"
 EDA_DIR = OUTPUT_DIR / "eda"
 EVAL_DIR = OUTPUT_DIR / "evaluation"
 
+# --- CSV rapor dosyaları (train.py / predict.py çalıştırıldığında üretilir) ---
+MODEL_RESULTS_CSV = EVAL_DIR / "model_results.csv"
+HYPERPARAMETER_RESULTS_CSV = EVAL_DIR / "hyperparameter_results.csv"
+DATASET_SUMMARY_CSV = EVAL_DIR / "dataset_summary.csv"
+FEATURE_IMPORTANCE_CSV = EVAL_DIR / "feature_importance.csv"
+TEST_PREDICTIONS_CSV = EVAL_DIR / "test_predictions.csv"
+PREDICTIONS_CSV = OUTPUT_DIR / "predictions.csv"
+
 # --- Genel ---
 RANDOM_STATE = 42
 
